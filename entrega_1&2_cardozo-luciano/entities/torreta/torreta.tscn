@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwq4dyd53ffsm"]
+
+[ext_resource type="Texture2D" uid="uid://deposbnxb1sy4" path="res://resources/torreta.png" id="1_6y5mg"]
+[ext_resource type="Script" path="res://entities/torreta/torreta.gd" id="2_o0gfr"]
+[ext_resource type="PackedScene" uid="uid://vo4mwp1tr5bl" path="res://entities/Projectible/projectible.tscn" id="3_g0y8n"]
+
+[node name="Torreta" type="Sprite2D"]
+texture = ExtResource("1_6y5mg")
+script = ExtResource("2_o0gfr")
+projectile_scene = ExtResource("3_g0y8n")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, 50)
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
