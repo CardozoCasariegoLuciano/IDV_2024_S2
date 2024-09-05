@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwq4dyd53ffsm"]
+
+[ext_resource type="Texture2D" uid="uid://deposbnxb1sy4" path="res://resources/torreta.png" id="1_6y5mg"]
+[ext_resource type="PackedScene" uid="uid://b48dkk0i361yl" path="res://entities/Projectible/torreta_projectible.tscn" id="2_axngq"]
+[ext_resource type="Script" path="res://entities/torreta/torreta.gd" id="2_o0gfr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xsw72"]
+size = Vector2(47, 97)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7xxyl"]
+radius = 454.04
+
+[node name="Torreta" type="StaticBody2D" groups=["destruible"]]
+collision_layer = 4
+script = ExtResource("2_o0gfr")
+projectile_scene = ExtResource("2_axngq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_xsw72")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6y5mg")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, 50)
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+
+[node name="player_detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detector"]
+shape = SubResource("CircleShape2D_7xxyl")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="player_detector" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="player_detector" to="." method="_on_area_2d_body_exited"]
