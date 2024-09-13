@@ -6,6 +6,7 @@ var friction: float = 0.1
 var acceleration:float = 20
 const GRAVITY = 20
 const JUMP_POWER = -500
+const push_force:float = 80.0
 
 @onready var cannon = $cannon
 
@@ -22,7 +23,8 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	playerMovement()
 	playerJump()
-	
+	collitionsHandler()
+
 func playerJump():
 	if(Input.is_action_just_pressed("jump") and self.is_on_floor()):
 		velocity.y = JUMP_POWER
@@ -41,7 +43,11 @@ func playerMovement():
 func cannonBehaivor():
 	var mouse_position := get_global_mouse_position()
 	cannon.look_at(mouse_position)
-	
 	if(Input.is_action_just_pressed("fire")):
 		cannon.fire()
-		
+
+func collitionsHandler():
+	for i in get_slide_collision_count():
+		var c = get_slide_collision(i)
+		if c.get_collider() is RigidBody2D:
+			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
