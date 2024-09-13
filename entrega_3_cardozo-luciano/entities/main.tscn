@@ -41,8 +41,8 @@ torretas_scens = ExtResource("5_8grmj")
 layer = -1
 
 [node name="fondo" type="Sprite2D" parent="fondo"]
-position = Vector2(576.5, 323)
-scale = Vector2(1.43875, 1.08)
+position = Vector2(811, 488.5)
+scale = Vector2(3.2375, 2.645)
 texture = ExtResource("1_tivq6")
 
 [node name="Player" parent="." instance=ExtResource("1_gf23r")]
